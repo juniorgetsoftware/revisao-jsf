@@ -8,8 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Book {
@@ -21,7 +20,7 @@ public class Book {
 	private String description;
 	private int numberOfPages;
 	private BigDecimal price;
-	@OneToMany
+	@ManyToMany
 	private List<Author> authors = new ArrayList<>();
 
 	public void add(Author author) {

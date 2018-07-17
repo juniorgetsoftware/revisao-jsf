@@ -29,7 +29,7 @@ public class AdminBooksBean {
 
 	@PostConstruct
 	public void loadObjects() {
-//		this.authors = authorDAO.list();
+		this.authors = authorDAO.list();
 	}
 	
 	@Inject

@@ -1,4 +1,5 @@
-<html xmlns:h="http://java.sun.com/jsf/html"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
@@ -29,8 +30,9 @@
 			<h:outputLabel>Autores</h:outputLabel>
 			<h:selectManyListbox value="#{adminBooksBean.selectedAuthorsIds}">
 				<f:selectItems value="#{adminBooksBean.authors}"
-					converter="javax.faces.Integer" var="author"
+					var="author"
 					itemLabel="#{author.name}" itemValue="#{author.id}" />
+					<f:converter converterId="javax.faces.Integer"/>
 			</h:selectManyListbox>
 		</div>
 
