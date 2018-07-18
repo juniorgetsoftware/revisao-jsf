@@ -49,8 +49,9 @@ public class Book {
 	@NotNull
 	@Future
 	private Calendar releaseDate;
-	
+
 	private String summaryPath;
+	private String coverPath;
 
 	public void add(Author author) {
 		this.authors.add(author);
@@ -118,6 +119,14 @@ public class Book {
 
 	public void setAuthors(List<Author> authors) {
 		this.authors = authors;
+	}
+
+	public String getCoverPath() {
+		return coverPath;
+	}
+
+	public void setCoverPath(String coverPath) {
+		this.coverPath = coverPath;
 	}
 
 	@Override

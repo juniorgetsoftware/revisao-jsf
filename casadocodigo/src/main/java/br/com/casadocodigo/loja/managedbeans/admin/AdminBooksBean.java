@@ -17,10 +17,11 @@ public class AdminBooksBean {
 	private Book product = new Book();
 
 	private Part summary;
+	private Part cover;
 
 	@Inject
 	private BookDAO bookDAO;
- 
+
 	@PostConstruct
 	public void loadObjects() {
 
@@ -35,8 +36,10 @@ public class AdminBooksBean {
 	@Transactional
 	public String save() {
 		String summaryPath = fileSaver.write("summaries", summary);
-		System.out.println(summaryPath);
+		String coverPath = fileSaver.write("covers", cover);
+
 		product.setSummaryPath(summaryPath);
+		product.setCoverPath(coverPath);
 		bookDAO.save(product);
 		messageHelper.addInfoMessage(null, "Livro cadastrado com sucesso!", "").keepMessages();
 		clearObjects();
@@ -63,6 +66,14 @@ public class AdminBooksBean {
 
 	public void setSummary(Part summary) {
 		this.summary = summary;
+	}
+
+	public Part getCover() {
+		return cover;
+	}
+
+	public void setCover(Part cover) {
+		this.cover = cover;
 	}
 
 }

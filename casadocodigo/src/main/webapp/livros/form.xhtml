@@ -14,6 +14,12 @@
 		</div>
 		
 		<div>
+			<h:outputLabel >Capa</h:outputLabel>
+			<h:inputFile id="conver" label="Capa do livro"
+			value="#{adminBooksBean.cover}"/>
+		</div>
+		
+		<div>
 			<h:outputLabel for="titulo">Título</h:outputLabel>
 			<h:inputText id="titulo" value="#{adminBooksBean.product.title}" />
 		</div>
