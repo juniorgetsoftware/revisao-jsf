@@ -1,38 +1,56 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <h:body>
-	<h:form>
-
+	<h:messages />
+	<h:form enctype="multipart/form-data">
+	
 		<div>
-			<h:outputLabel>Titulo</h:outputLabel>
-			<h:inputText value="#{adminBooksBean.product.title}" />
+			<h:outputLabel >Sumário</h:outputLabel>
+			<h:inputFile id="summary" label="Sumário do livro"
+			value="#{adminBooksBean.summary}"/>
+		</div>
+		
+		<div>
+			<h:outputLabel for="titulo">Título</h:outputLabel>
+			<h:inputText id="titulo" value="#{adminBooksBean.product.title}" />
 		</div>
 
 		<div>
-			<h:outputLabel>Descrição</h:outputLabel>
-			<h:inputTextarea cols="20" rows="10"
+			<h:outputLabel for="descricao">Descrição</h:outputLabel>
+			<h:inputTextarea id="descricao" cols="20" rows="10"
 				value="#{adminBooksBean.product.description}" />
 		</div>
 
 		<div>
-			<h:outputLabel>Número de páginas</h:outputLabel>
-			<h:inputText value="#{adminBooksBean.product.numberOfPages}" />
+			<h:outputLabel for="numberOfPages">Número de páginas</h:outputLabel>
+			<h:inputText id="numberOfPages"
+				value="#{adminBooksBean.product.numberOfPages}" />
 		</div>
 
 		<div>
-			<h:outputLabel>Preço</h:outputLabel>
-			<h:inputText value="#{adminBooksBean.product.price}" />
+			<h:outputLabel for="price">Preço</h:outputLabel>
+			<h:inputText id="price" value="#{adminBooksBean.product.price}" />
+		</div>
+
+		<div>
+			<h:outputLabel>Data de lançamento</h:outputLabel>
+			<h:inputText id="releaseDate"
+				value="#{adminBooksBean.product.releaseDate}" pt:type="date">
+				<f:convertDateTime pattern="yyyy-MM-dd" />
+				<f:converter converterId="calendarHtml5Converter"/>
+			</h:inputText>
 		</div>
 
 		<div>
 			<h:outputLabel>Autores</h:outputLabel>
-			<h:selectManyListbox value="#{adminBooksBean.selectedAuthorsIds}">
-				<f:selectItems value="#{adminBooksBean.authors}"
-					var="author"
-					itemLabel="#{author.name}" itemValue="#{author.id}" />
-					<f:converter converterId="javax.faces.Integer"/>
+			<h:selectManyListbox id="authors"
+				value="#{adminBooksBean.product.authors}"
+				converter="entityConverter">
+				<f:selectItems value="#{authorsList.get()}" var="author"
+					itemLabel="#{author.name}" itemValue="#{author}" />
 			</h:selectManyListbox>
 		</div>
 
