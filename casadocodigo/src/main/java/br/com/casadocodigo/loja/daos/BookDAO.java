@@ -10,8 +10,15 @@ import br.com.casadocodigo.loja.models.Book;
 
 public class BookDAO {
 
-	@PersistenceContext // (unitName = "casadocodigo-persistence-unit")
+	@PersistenceContext
 	private EntityManager manager;
+
+	public BookDAO() {
+	}
+	
+	public BookDAO(EntityManager manager) {
+		this.manager = manager;
+	}
 
 	@Transactional
 	public void save(Book product) {
@@ -29,5 +36,9 @@ public class BookDAO {
 
 	public List<Book> olderBooks() {
 		return manager.createQuery("select b from Book b", Book.class).setMaxResults(20).getResultList();
+	}
+
+	public Book findById(Integer id) {
+		return manager.find(Book.class, id);
 	}
 }
