@@ -19,4 +19,9 @@
 		<param-value>Development</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>org.omnifaces.CACHE_SETTING_APPLICATION_TTL</param-name>
+		<param-value>900</param-value>
+	</context-param>
+
 </web-app>
