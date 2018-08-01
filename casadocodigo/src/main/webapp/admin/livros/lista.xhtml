@@ -3,7 +3,14 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:body>
-<h:messages />
+	
+	<h:messages />
+	
+	<h1>
+		<h:outputFormat value="#{msg['usuarios.bemVindo']}">
+			<f:param value="#{currentUser.get().email}" />
+		</h:outputFormat>
+	</h1>
 	<h:dataTable value="#{adminListBooksBean.books}" var="book">
 		<h:column>
 			<f:facet name="header">
@@ -18,7 +25,7 @@
 			</f:facet>
 			#{book.numberOfPages}
 		</h:column>
-		
+
 		<h:column>
 			<f:facet name="header">
 				Preço
@@ -32,7 +39,7 @@
 				#{author.name}|
 			</ui:repeat>
 		</h:column>
-		
+
 		<h:column>
 			<f:facet name="header">Sumário</f:facet>
 			<h:outputLink value="#{request.contextPath}
@@ -40,7 +47,7 @@
 				#{book.summaryPath}
 			</h:outputLink>
 		</h:column>
-		
+
 	</h:dataTable>
 </h:body>
 </html>

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 import org.hibernate.jpa.QueryHints;
 
@@ -17,15 +16,33 @@ public class BookDAO {
 	private EntityManager manager;
 
 	public BookDAO() {
+
 	}
 
 	public BookDAO(EntityManager manager) {
+		super();
 		this.manager = manager;
 	}
 
-	@Transactional
 	public void save(Book product) {
 		manager.persist(product);
+	}
+
+	public List<Book> lastReleases() {
+		TypedQuery<Book> query = manager
+				.createQuery("select b from Book b where b.releaseDate <= now() order by b.id desc", Book.class)
+				.setMaxResults(3);
+		query.setHint(QueryHints.HINT_CACHEABLE, true);
+		query.setHint(QueryHints.HINT_CACHE_REGION, "home");
+		return query.getResultList();
+	}
+
+	public List<Book> last(int number) {
+		TypedQuery<Book> query = manager.createQuery("select b from Book b join fetch b.authors", Book.class)
+				.setMaxResults(number);
+		query.setHint(QueryHints.HINT_CACHEABLE, true);
+		query.setHint(QueryHints.HINT_CACHE_REGION, "home");
+		return query.getResultList();
 	}
 
 	public List<Book> list() {
@@ -33,13 +50,6 @@ public class BookDAO {
 		query.setHint(QueryHints.HINT_CACHEABLE, true);
 		return query.getResultList();
 
-	}
-
-	public List<Book> lastReleases() {
-		TypedQuery<Book> query = manager
-				.createQuery("select b from Book b where b.releaseDate <= now() order by b.id desc", Book.class);
-		query.setHint(QueryHints.HINT_CACHEABLE, true);
-		return query.setMaxResults(3).getResultList();
 	}
 
 	public List<Book> olderBooks() {
