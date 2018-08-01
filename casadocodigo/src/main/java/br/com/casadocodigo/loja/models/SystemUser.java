@@ -1,10 +1,15 @@
 package br.com.casadocodigo.loja.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -17,39 +22,44 @@ public class SystemUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Email
 	@NotBlank
 	@Column(unique = true)
 	private String email;
-	
+
 	@NotBlank(groups = BuyerGroup.class)
 	private String firstName;
-	
+
 	@NotBlank(groups = BuyerGroup.class)
 	private String lastName;
-	
+
 	@NotBlank(groups = BuyerGroup.class)
 	private String socialId;
-	
+
 	@NotBlank(groups = BuyerGroup.class)
 	private String address;
-	
+
 	@NotBlank(groups = BuyerGroup.class)
 	private String city;
-	
+
 	@NotBlank(groups = BuyerGroup.class)
 	private String state;
-	
+
 	@NotBlank(groups = BuyerGroup.class)
 	private String postalCode;
-	
+
 	@NotBlank(groups = BuyerGroup.class)
 	private String phone;
-	
+
 	@NotBlank(groups = BuyerGroup.class)
 	private String country;
 	private String password;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<SystemRole> roles = new ArrayList<>();
+
+	//
 
 	public Integer getId() {
 		return id;
@@ -145,6 +155,14 @@ public class SystemUser {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<SystemRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<SystemRole> roles) {
+		this.roles = roles;
 	}
 
 }
